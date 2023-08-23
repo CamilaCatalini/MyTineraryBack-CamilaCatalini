@@ -1,17 +1,15 @@
+import 'dotenv/config.js'
 import express from 'express';
-import { getCities } from './controllers/citiesController.js';
+import indexRouter from './router/indexRouter.js';
+import cors from 'cors';
 
-const PORT = 4000;
+import './config/database.js';
 
 const app = express();
 
-app.get('/', (req,res)=>{
-    console.log(req);
-    res.send('hola');
-})
+app.use(cors()) ;
+app.use(express.json());
 
-app.get('/api/cities', getCities)
+app.use('/api', indexRouter);
 
-app.listen(PORT, ()=>{
-    console.log('hola');
-})
+app.listen(process.env['PORT'], ()=>{});
