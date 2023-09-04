@@ -29,6 +29,20 @@ const citiesController = {
         }
     },
 
+    getLastIdCity:async (req, res) =>{
+
+        try{
+            const city = await City.find().sort({_id:-1}).limit(1);
+            const r = {
+                status : 200,
+                city: city
+            }
+            res.json(r);
+        } catch(error) {
+            console.log(error);
+        }
+    },
+
     createCity:async (req, res) =>{
 
         try{
@@ -46,7 +60,27 @@ const citiesController = {
             status : 200,
         }
         res.json(r);
+    },
+
+    deleteCity:async (req, res) =>{
+
+        const { id } = req.params;
+        let city;
+
+        console.log('hola')
+
+        try{
+            city = await City.findOneAndDelete({_id : id});
+        } catch(error) {
+            console.log(error);
+        }
+
+        const r = {
+            status : 200,
+        }
+        res.json(r);
     }
+    
     
 }
 
