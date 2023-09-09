@@ -29,6 +29,21 @@ const tinerariesController = {
         }
     },
 
+    getTinerariesForCity:async (req, res)=>{
+        const city = req.params.id
+        try{
+            const itineraries = await Tinerary.find({city : city})
+            const r = {
+                status : 200,
+                itinerary: itineraries
+            }
+            console.log(r)
+            res.json(r);
+        } catch(error) {
+            console.log(error);
+        }
+    },
+
     createTinerary:async (req, res) =>{
 
 
